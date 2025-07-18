@@ -39,7 +39,7 @@ const Navbar = (props) => {
         <Link to={"/Signup"}>
         <button onClick={()=>{
           setIsLoggedIn(true);
-          toast.success("Logged out successfully");
+          toast.success("Signinng up successful");
         }}>Signup</button>
         </Link>
         }
