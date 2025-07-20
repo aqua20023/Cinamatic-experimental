@@ -1,12 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
+import {toast} from 'react-hot-toast'
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
 // import { $up } from '../Styles/StyledComponents'    
 
-const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = ({ setIsLoggedIn}) => {
   const [formData, setFormData] = useState({email:'', password:''});
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate()
 
   function changeHandler(event) {
     setFormData(prev => ({
@@ -17,15 +22,9 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
   function submitHandler(e) {
     e.preventDefault();
-    // Basic validation
-    if (!formData.email || !formData.password) {
-      alert('Please fill in all fields.');
-      return;
-    }
-    // Simulate login success
-    alert('Login successful!');
-    if (setIsLoggedIn) setIsLoggedIn(true);
-    // You can add navigation or API call here
+   setIsLoggedIn(true);
+   toast.success("Logged in");
+   navigate("/Dashboard");
   }
 
   return (
@@ -64,7 +63,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
         </label>
         <button type="submit">
-          Login
+          Sign In
         </button>
       </form>
     )

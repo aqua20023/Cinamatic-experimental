@@ -1,11 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 
-const SignupForm = () => {
+const SignupForm = ({setIsLoggedIn}) => {
   const [formData, setFormData] = useState({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});  
-  const [showPassword, setShowPassword] = useState(false);     
+  const [showPassword, setShowPassword] = useState(false);   
+
+
+  const Navigate = useNavigate()
 
   function changeHandler(event){
     setFormData(prev => ({
@@ -15,8 +20,20 @@ const SignupForm = () => {
   }
   function submitHandler(e) {
     e.preventDefault();
-    // Add your signup logic here (e.g., validation, API call)
-    console.log(formData);
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+      else{ 
+    setIsLoggedIn(true);
+    toast.success("Signed up successfully");
+    Navigate("/Dashboard");
+    const userData = {
+      ...formData
+    };
+    console.log(userData);
+  }
+   
   }
   return (
     <div>
@@ -102,7 +119,7 @@ const SignupForm = () => {
           </label>
         </div>
 
-        <button type='submit'>Sign Up</button>
+        <button type='submit'>Create Account</button>
       </form>
     </div>
   )
