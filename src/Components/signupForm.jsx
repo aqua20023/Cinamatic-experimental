@@ -1,46 +1,111 @@
 import React from 'react'
 import { useState } from 'react'
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 const signupForm = () => {
-  const {formData, setFormData} = useState({email:'', password:''});
+  const {FormData, setFormData} = useState({firstName: '',lastName: '', email: '', password: '', confirmPassword: ''});  
+  const [showPassword, setShowPassword] = useState(false);  
 
-  const {password, setPassword} = useState(false);
-
-  function changeHandler(event) {
-    // const {name, value} = event.target;
-    setFormData(prev => (
-      {
+  function changeHandler(event){
+    const [name,value] = event .target;
+    setFormData((prev) =>{
+      return {
         ...prev,
-        //  [name]: value
-        [event.target.name]: event.target.value
-      }));
+        [name]: value
+      }
+    })
+
   }
-urn (
-    <form action="">
-      <label>
-        <p>
-          Email Address <$up>*</$up>
-        </p>
-        <input type="email"
-         placeholder='Enter email id'
-         required
-         onChange={changeHandler} 
-         value={formData.email}/>
+  return (
+    <div>
+      {/* student-instructor-tab */}
+      <div>
+        <button>
+          Stuent
+        </button>
+        <button>
+          Instructor
+        </button>
+      </div>
+      
+      <form>
 
-      </label>
+      <div>
 
-      <label>
-        <p>
-          Password <$up>*</$up>
-        </p>
-        <input type={password ? ("text") : ("password")}
-         placeholder='Enter password'
-         required
-         onChange={changeHandler} 
-         value={formData.password}/>
+        {/* first - last -name-input */}
+        <label>
+          <p>First Name<$up>*</$up></p>
+          <input type="text"
+          name='first-name'
+          value ={FormData.firstName}
+          onChange={changeHandler}
+          placeholder='Enter your first name'
+          required
+          id='first-name-input'
+          />
+        </label>
+        <label>
+          <p>Last Name<$up>*</$up></p>
+          <input type="text"
+          name='Last-name'
+          value ={FormData.lastName}
+          onChange={changeHandler}
+          placeholder='Enter your first name'
+          required
+          id='first-name-input'
+          />
+         
+        </label>
+       </div>
+        <div>
+          {/* email-input */}
+          <label>
+            <p>Email<$up>*</$up></p>
+            <input type="email"
+            name='email'
+            value ={FormData.email}
+            onChange={changeHandler}
+            placeholder='Enter your email'
+            required
+            id='email-input'
+            />
+          </label>
+        </div>
 
-      </label>
-    </form>
+        <div>
+          {/* password-input */}
+          <label>
+            <p>Password<$up>*</$up></p>
+            <input type={showPassword ? ("text") : ("password")}
+            name='password'
+            value ={FormData.password}
+            onChange={changeHandler}
+            placeholder='Enter your password'
+            required
+            id='password-input'
+            />
+             <span onClick={()=> setShowPassword((prev)=> !prev)}>
+              {showPassword ? (<AiOutlineEye/>): (<AiOutlineEyeInvisible/>)}
+             </span>
+          </label>
+          <label>
+            <p>Confirm Password<$up>*</$up></p>
+            <input type={showPassword ? ("text") : ("password")}
+            name='confirmPassword'
+            value ={FormData.confirmPassword}
+            onChange={changeHandler}
+            placeholder='Re-enter your password'
+            required
+            id='password-input'
+            />
+             <span onClick={()=> setShowPassword((prev)=> !prev)}>
+               {showPassword ? (<AiOutlineEye/>): (<AiOutlineEyeInvisible/>)}
+             </span>
+          </label>
+        </div>
+
+        <button type='submit'>Sign Up</button>
+      </form>
+    </div>
   )
 }
 
