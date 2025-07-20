@@ -1,72 +1,71 @@
 import React from 'react'
 import { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-const signupForm = () => {
-  const {FormData, setFormData} = useState({firstName: '',lastName: '', email: '', password: '', confirmPassword: ''});  
-  const [showPassword, setShowPassword] = useState(false);  
+
+
+const SignupForm = () => {
+  const [formData, setFormData] = useState({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});  
+  const [showPassword, setShowPassword] = useState(false);     
 
   function changeHandler(event){
-    const [name,value] = event .target;
-    setFormData((prev) =>{
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
-
+    setFormData(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value
+    }));
+  }
+  function submitHandler(e) {
+    e.preventDefault();
+    // Add your signup logic here (e.g., validation, API call)
+    console.log(formData);
   }
   return (
     <div>
       {/* student-instructor-tab */}
       <div>
         <button>
-          Stuent
+          Student
         </button>
         <button>
           Instructor
         </button>
       </div>
-      
-      <form>
-
-      <div>
-
-        {/* first - last -name-input */}
-        <label>
-          <p>First Name<$up>*</$up></p>
-          <input type="text"
-          name='first-name'
-          value ={FormData.firstName}
-          onChange={changeHandler}
-          placeholder='Enter your first name'
-          required
-          id='first-name-input'
-          />
-        </label>
-        <label>
-          <p>Last Name<$up>*</$up></p>
-          <input type="text"
-          name='Last-name'
-          value ={FormData.lastName}
-          onChange={changeHandler}
-          placeholder='Enter your first name'
-          required
-          id='first-name-input'
-          />
-         
-        </label>
-       </div>
+      <form onSubmit={submitHandler}>
+        <div>
+          {/* first - last -name-input */}
+          <label>
+            <p>First Name*</p>
+            <input type="text"
+              name='firstName'
+              value={formData.firstName}
+              onChange={changeHandler}
+              placeholder='Enter your first name'
+              required
+              id='first-name-input'
+            />
+          </label>
+          <label>
+            <p>Last Name*</p>
+            <input type="text"
+              name='lastName'
+              value={formData.lastName}
+              onChange={changeHandler}
+              placeholder='Enter your last name'
+              required
+              id='last-name-input'
+            />
+          </label>
+        </div>
         <div>
           {/* email-input */}
           <label>
-            <p>Email<$up>*</$up></p>
+            <p>Email</p>
             <input type="email"
-            name='email'
-            value ={FormData.email}
-            onChange={changeHandler}
-            placeholder='Enter your email'
-            required
-            id='email-input'
+              name='email'
+              value={formData.email}
+              onChange={changeHandler}
+              placeholder='Enter your email'
+              required
+              id='email-input'
             />
           </label>
         </div>
@@ -74,28 +73,28 @@ const signupForm = () => {
         <div>
           {/* password-input */}
           <label>
-            <p>Password<$up>*</$up></p>
+            <p>Password</p>
             <input type={showPassword ? ("text") : ("password")}
-            name='password'
-            value ={FormData.password}
-            onChange={changeHandler}
-            placeholder='Enter your password'
-            required
-            id='password-input'
+              name='password'
+              value={formData.password}
+              onChange={changeHandler}
+              placeholder='Enter your password'
+              required
+              id='password-input'
             />
              <span onClick={()=> setShowPassword((prev)=> !prev)}>
               {showPassword ? (<AiOutlineEye/>): (<AiOutlineEyeInvisible/>)}
              </span>
           </label>
           <label>
-            <p>Confirm Password<$up>*</$up></p>
+            <p>Confirm Password*</p>
             <input type={showPassword ? ("text") : ("password")}
-            name='confirmPassword'
-            value ={FormData.confirmPassword}
-            onChange={changeHandler}
-            placeholder='Re-enter your password'
-            required
-            id='password-input'
+              name='confirmPassword'
+              value={formData.confirmPassword}
+              onChange={changeHandler}
+              placeholder='Re-enter your password'
+              required
+              id='confirm-password-input'
             />
              <span onClick={()=> setShowPassword((prev)=> !prev)}>
                {showPassword ? (<AiOutlineEye/>): (<AiOutlineEyeInvisible/>)}
@@ -109,4 +108,4 @@ const signupForm = () => {
   )
 }
 
-export default signupForm
+export default SignupForm

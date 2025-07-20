@@ -2,27 +2,37 @@ import React from 'react'
 import { useState } from 'react'
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import { $up } from '../Styles/StyledComponents'    
+// import { $up } from '../Styles/StyledComponents'    
 
-const loginForm = () => {
-  const {formData, setFormData} = useState({email:'', password:''});
-  
-    const {showPassword, setShowPassword} = useState(false);
-  
-    function changeHandler(event) {
-      // const {name, value} = event.target;
-      setFormData(prev => (
-        {
-          ...prev,
-          //  [name]: value
-          [event.target.name]: event.target.value
-        }));
+const LoginForm = ({ setIsLoggedIn }) => {
+  const [formData, setFormData] = useState({email:'', password:''});
+  const [showPassword, setShowPassword] = useState(false);
+
+  function changeHandler(event) {
+    setFormData(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value
+    }));
+  }
+
+  function submitHandler(e) {
+    e.preventDefault();
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      alert('Please fill in all fields.');
+      return;
     }
+    // Simulate login success
+    alert('Login successful!');
+    if (setIsLoggedIn) setIsLoggedIn(true);
+    // You can add navigation or API call here
+  }
+
   return (
-      <form action="">
+    <form onSubmit={submitHandler}>
         <label>
           <p>
-            Email Address <$up>*</$up>
+            Email Address 
           </p>
           <input type="email"
            placeholder='Enter email id'
@@ -35,7 +45,7 @@ const loginForm = () => {
   
         <label>
           <p>
-            Password <$up>*</$up>
+            Password 
           </p>
           <input type={showPassword ? ("text") : ("password")}
            placeholder='Enter password'
@@ -53,11 +63,11 @@ const loginForm = () => {
            </Link>
 
         </label>
-        <button>
+        <button type="submit">
           Login
         </button>
       </form>
     )
 }
 
-export default loginForm
+export default LoginForm
